@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r122/three.min.js" type="text/javascript"></script>
+    <script src="js/OrbitControls.js" type="text/javascript"></script>
+<body>
+
+<script>
+window.addEventListener('load', () => {
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera( 50, window.innerWidth/window.innerHeight, 0.1, 1000 );
+
+    var renderer = new THREE.WebGLRenderer();
+    document.body.appendChild( renderer.domElement );
+
+    camera.position = new THREE.Vector3(0.08933252424548495, 0.012991545009608613, 9.693299999994998)
+    var orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+
+    const beforePolar = orbitControls.getPolarAngle();
+    const beforeAzimuth = orbitControls.getAzimuthalAngle();
+    orbitControls.minAzimuthAngle = beforeAzimuth;
+    orbitControls.maxAzimuthAngle = beforeAzimuth;
+
+    console.log('before azimuth', beforeAzimuth);
+
+    orbitControls.target = new THREE.Vector3(-0.5014164999999999, 0.012999999999999984, -0.3067);
+    orbitControls.update();
+
+    const afterAzimuth = orbitControls.getAzimuthalAngle();
+    console.log('after azimuth', afterAzimuth);
+
+    document.body.innerHTML += `<br>before: ${beforeAzimuth}<br>after:${afterAzimuth}`;
+})
+
+</script>
+</body>
+</html>
